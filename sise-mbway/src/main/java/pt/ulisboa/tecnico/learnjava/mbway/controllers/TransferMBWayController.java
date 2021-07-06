@@ -27,25 +27,28 @@ public class TransferMBWayController {
 		if(IntAmount<=0) {
 			throw new TransferException("Wrong amount, Try again.");
 		}
-		
-		if(!modelDataBase.containsNumber(SourceNumber) || !modelDataBase.containsNumber(TargetNumber)) {
-			throw new TransferException("Wrong phone number, Try again.");	
-		}
 			
-		MBWayAccount SourceAccount = modelDataBase.getAccount(SourceNumber);
-		MBWayAccount TargetAccount = modelDataBase.getAccount(TargetNumber);
+		MBWayAccount SourceAccount = get_account(SourceNumber);
+		MBWayAccount TargetAccount = get_account(TargetNumber);
 		
-		if(!SourceAccount.is_active() || !TargetAccount.is_active()) {
-			throw new TransferException("Account is not confirmed.");	
-		}
-		
-
 		if(modelDataBase.getSibs().services.getAccountByIban(SourceAccount.getIban()).getBalance()<IntAmount) {
 			throw new TransferException("Not enough money on the source account.");	
 		}
 		
 		modelDataBase.getSibs().transfer(SourceAccount.getIban(), TargetAccount.getIban(), IntAmount);	
 		return "Transfer performed successfully!";
+	}	
+	
+	
+	public MBWayAccount get_account(String account) throws TransferException {
+		if(!modelDataBase.containsNumber(account)) {
+			throw new TransferException("Wrong phone number, Try again.");	
+		}
+		MBWayAccount Account = modelDataBase.getAccount(account);
+		if(!Account.is_active()) {
+			throw new TransferException("Account is not confirmed.");	
+		}
+		return Account;
 	}
-
 }
+
