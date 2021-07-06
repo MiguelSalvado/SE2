@@ -29,16 +29,14 @@ public class SplitInsuranceMBWayController {
 			if(modelDataBase.getAccount(number) == null) {
 				throw new SplitException("Something is wrong. Is the number: "+number+" right?");	
 			}
-
 			if(modelDataBase.getSibs().services.getAccountByIban(modelDataBase.getAccount(number).getIban()).getBalance() < Integer.parseInt(Family.get(number))) {
-				throw new SplitException("Oh no! One family member doesn’t have money to pay!");	
+				throw new SplitException("Oh no! One family member doesnâ€™t have money to pay!");	
 			}
 			TotalPayed += Integer.parseInt(Family.get(number));
 		}
 		if(TotalPayed != TotalAmount) {
 			throw new SplitException("Something is wrong. Is the insurance amount right?");
 		}
-		
 		for(String number: Family.keySet()) {
 			modelDataBase.getSibs().services.withdraw(modelDataBase.getAccount(number).getIban(), Integer.parseInt(Family.get(number)));
 		}
