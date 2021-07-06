@@ -75,8 +75,8 @@ public class SplitInsuranceMBWayTest {
 		
 		sibs = new Sibs(100,services);
 		MBWayView view = new MBWayView();
-		MBWayDataBase model = new MBWayDataBase(sibs);
-		controller = new SplitInsuranceMBWayController(model);
+		model = new MBWayDataBase(sibs);
+		
 		Confirmcontroller = new ConfirmMBWayController(model);
 		Associatecontroller = new AssociateMBWayController(model);
 		
@@ -107,7 +107,8 @@ public class SplitInsuranceMBWayTest {
 		family.put(Accountnumber1, "500"); //1000 -> 500
 		family.put(Accountnumber2, "500"); //5000 -> 4500
 		family.put(Accountnumber3, "500"); //2500 -> 2000
-		controller.mbway_split_insurance(n_mebrs, amount, family);
+		controller = new SplitInsuranceMBWayController(model , family);
+		controller.mbway_split_insurance(n_mebrs, amount);
 		assertEquals(this.sibs.services.getAccountByIban(iban1).getBalance(),500);
 		assertEquals(this.sibs.services.getAccountByIban(iban2).getBalance(),4500);
 		assertEquals(this.sibs.services.getAccountByIban(iban3).getBalance(),2000);
@@ -121,7 +122,8 @@ public class SplitInsuranceMBWayTest {
 		family.put(Accountnumber1, "500");
 		family.put(Accountnumber2, "500"); 
 		family.put(Accountnumber3, "500");  
-		controller.mbway_split_insurance(n_mebrs, amount, family);
+		controller = new SplitInsuranceMBWayController(model , family);
+		controller.mbway_split_insurance(n_mebrs, amount);
 	}
 	
 	@Test(expected = SplitException.class)
@@ -132,7 +134,8 @@ public class SplitInsuranceMBWayTest {
 		family.put(Accountnumber1, "500");  
 		family.put(Accountnumber2, "500");  
 		family.put(Accountnumber3, "500");
-		controller.mbway_split_insurance(n_mebrs, amount, family);
+		controller = new SplitInsuranceMBWayController(model , family);
+		controller.mbway_split_insurance(n_mebrs, amount);
 	}
 	
 	@Test(expected = SplitException.class)
@@ -143,7 +146,8 @@ public class SplitInsuranceMBWayTest {
 		family.put(Accountnumber1, "500");
 		family.put(Accountnumber2, "500"); 
 		family.put(Accountnumber3, "500"); 
-		controller.mbway_split_insurance(n_mebrs, amount, family);
+		controller = new SplitInsuranceMBWayController(model , family);
+		controller.mbway_split_insurance(n_mebrs, amount);
 	}
 	
 	
@@ -155,7 +159,8 @@ public class SplitInsuranceMBWayTest {
 		family.put(Accountnumber1, "500");
 		family.put(Accountnumber2, "500"); 
 		family.put(Accountnumber3, "500"); 
-		controller.mbway_split_insurance(n_mebrs, amount, family);
+		controller = new SplitInsuranceMBWayController(model , family);
+		controller.mbway_split_insurance(n_mebrs, amount);
 	}
 	
 	
@@ -167,7 +172,8 @@ public class SplitInsuranceMBWayTest {
 		family.put("993218323", "500");
 		family.put(Accountnumber2, "500"); 
 		family.put(Accountnumber3, "500"); 
-		controller.mbway_split_insurance(n_mebrs, amount, family);
+		controller = new SplitInsuranceMBWayController(model , family);
+		controller.mbway_split_insurance(n_mebrs, amount);
 	}
 	
 	
@@ -179,7 +185,8 @@ public class SplitInsuranceMBWayTest {
 		family.put(Accountnumber1, "1500"); //Balance = 1000
 		family.put(Accountnumber2, "500"); 
 		family.put(Accountnumber3, "500"); 
-		controller.mbway_split_insurance(n_mebrs, amount, family);
+		controller = new SplitInsuranceMBWayController(model , family);
+		controller.mbway_split_insurance(n_mebrs, amount);
 	}
 	
 	

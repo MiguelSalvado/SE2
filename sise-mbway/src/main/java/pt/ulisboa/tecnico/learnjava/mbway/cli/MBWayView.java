@@ -72,7 +72,7 @@ public class MBWayView {
 	//Split
 	public static void split_print(SplitInsuranceMBWayController controller, int n_mebs, int Amount, TreeMap<String, String> Family) throws NumberFormatException, AccountException, SplitException {
 		try {
-			System.out.println(controller.mbway_split_insurance(n_mebs, Amount, Family));
+			System.out.println(controller.mbway_split_insurance(n_mebs, Amount));
 		}
 		catch(SplitException se) {
 			System.out.println(se.getMsg());
@@ -92,10 +92,10 @@ public class MBWayView {
 		Sibs sibs = new Sibs(100,services);
 		MBWayDataBase model = new MBWayDataBase(sibs);
 		
-		ExitMBWayController ExitController = new ExitMBWayController();
+		ExitMBWayController ExitController;
 		AssociateMBWayController AssociateController = new AssociateMBWayController(model);
 		ConfirmMBWayController ConfirmController = new ConfirmMBWayController(model);
-		SplitInsuranceMBWayController SplitInsuranceController = new SplitInsuranceMBWayController(model);
+		SplitInsuranceMBWayController SplitInsuranceController;
 		TransferMBWayController TransferController = new TransferMBWayController(model);
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -106,6 +106,7 @@ public class MBWayView {
 			
 			switch(split[0]) {
 				case "exit": 
+					ExitController = new ExitMBWayController();
 					exit_print(ExitController);
 					break;
 				case "associate-mbway":
@@ -133,6 +134,7 @@ public class MBWayView {
 						Family.put(split1[1], split1[2]);
 					
 					}
+					SplitInsuranceController = new SplitInsuranceMBWayController(model, Family);
 					split_print(SplitInsuranceController, numberFamily, TotalAmount, Family);
 					break;
 			}
