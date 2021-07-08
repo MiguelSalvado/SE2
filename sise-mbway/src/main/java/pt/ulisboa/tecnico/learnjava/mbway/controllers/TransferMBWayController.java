@@ -41,6 +41,10 @@ public class TransferMBWayController {
 	
 	
 	public MBWayAccount get_account(String account) throws TransferException {
+		/* This is the refactor for guideline Write Simple Units of Code (1 unit refactor) 
+		 * Foi criada uma função que valida os numeros e retorna as contas assim foi possivel 
+		 * reduzir o grau de complexidade da função mbway_tranfer, diminuindo o numero de branches).*/
+		
 		if(!modelDataBase.containsNumber(account)) {
 			throw new TransferException("Wrong phone number, Try again.");	
 		}

@@ -10,6 +10,11 @@ public class SplitInsuranceMBWayController {
 
 	
 	private MBWayDataBase modelDataBase;
+	
+	/* This is the refactor for guideline Keep Unit Interfaces Small (1 unit refactor).
+	 * Visto que todas as função tinham como parametro a variavel Family foi adicionada como atributo da classe 
+	 * sendo assim a função mbway_split_insurance só recebe 2 algumentos em vez de 3. */
+	
 	private TreeMap<String, String> Family;
 	
 	public SplitInsuranceMBWayController(MBWayDataBase modelDataBase, TreeMap<String, String> Family) {
@@ -32,6 +37,8 @@ public class SplitInsuranceMBWayController {
 	}
 	
 	public boolean mbway_split_validate_size(int N_family_memb) throws SplitException {
+		/* This is the refactor for guideline Write Short Units of Code (1 unit refactor). 
+		 * De forma a reduzir o numero de linhas de codigo, foram criadas duas funções para que a função original não excedesse as 15 linhas. */
 		if(N_family_memb > Family.size()) {		
 			throw new SplitException("Oh no! One family member is missing.");
 		}
